@@ -84,49 +84,38 @@ module GildraEvents
       to_h.to_json(*args)
     end
 
-    # Build an Envelope from the raw field hash of a Redis Streams entry. Handles
-    # BOTH the new wire format (with an `envelope` field carrying full JSON) and
-    # the legacy `{event, data, timestamp}` format published by un-migrated
-    # services. The returned Envelope's `data` field uses symbol keys so existing
-    # handler code that calls `data[:foo]` keeps working.
+    # Build an Envelope from the raw field hash of a Redis Streams entry.
+    # Strict: requires the `envelope` field to be present with a JSON-encoded
+    # envelope payload. Raises ArgumentError otherwise. Symbol keys are used on
+    # the returned `data` hash so handler code can call `data[:foo]`.
     def self.from_redis_fields(fields)
       f = fields.transform_keys(&:to_s)
+      envelope_json = f['envelope']
+      raise ArgumentError, "Missing 'envelope' field in Redis Streams entry: #{f.keys.inspect}" if envelope_json.nil?
 
-      if (envelope_json = f['envelope'])
-        parsed = JSON.parse(envelope_json)
-        new(
-          event_type: parsed['event_type'] || f['event'],
-          schema_version: parsed['schema_version'] || 1,
-          occurred_at: parse_time(parsed['occurred_at']) || parse_time(f['timestamp']) || Time.now.utc,
-          actor:     EntityRef.from_hash(parsed['actor']),
-          recipient: EntityRef.from_hash(parsed['recipient']),
-          resource:  EntityRef.from_hash(parsed['resource']),
-          data:      symbolize_keys_deep(parsed['data'] || {}),
-          ui:        EventUI.from_hash(parsed['ui'])
-        )
-      else
-        data_json = f['data']
-        data = data_json ? JSON.parse(data_json) : {}
-        new(
-          event_type: f['event'],
-          occurred_at: parse_time(f['timestamp']) || Time.now.utc,
-          data: symbolize_keys_deep(data)
-        )
-      end
+      parsed = JSON.parse(envelope_json)
+      new(
+        event_type: parsed['event_type'],
+        schema_version: parsed['schema_version'] || 1,
+        occurred_at: parse_time(parsed['occurred_at']) || Time.now.utc,
+        actor:     EntityRef.from_hash(parsed['actor']),
+        recipient: EntityRef.from_hash(parsed['recipient']),
+        resource:  EntityRef.from_hash(parsed['resource']),
+        data:      symbolize_keys_deep(parsed['data'] || {}),
+        ui:        EventUI.from_hash(parsed['ui'])
+      )
     end
 
-    # Serialize and publish this envelope to a Redis Stream. Wire format keeps
-    # the legacy `event` and `timestamp` fields (for consumer compatibility) and
-    # adds the full envelope JSON under an `envelope` key. Old consumers reading
-    # `event` + `data` will ignore the new field and miss the envelope; new
-    # consumers prefer `envelope` and ignore `data` when present.
+    # Serialize and publish this envelope to a Redis Stream. The wire format is
+    # `{event: <event_type>, envelope: <full json>}` — `event` is kept as a
+    # top-level field for easy `redis-cli xrange` filtering and ops debugging;
+    # consumers parse the full envelope JSON.
     def publish_to(stream_key, redis:, maxlen: 100_000, approximate: true)
       redis.xadd(
         stream_key,
         {
           event: event_type,
-          envelope: to_json,
-          timestamp: occurred_at.iso8601
+          envelope: to_json
         },
         maxlen: maxlen,
         approximate: approximate
