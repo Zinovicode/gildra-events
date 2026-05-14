@@ -7,10 +7,15 @@ export interface EntityRef {
   handle?: string;
 }
 
-/** User-facing presentation hints carried alongside the event. */
+/**
+ * User-facing presentation hints carried alongside the event.
+ * `image_url`, when present, is a square image suitable for an avatar /
+ * thumbnail on the in-app notification list and rich push banner.
+ */
 export interface EventUI {
   title: string;
   body?: string;
+  image_url?: string;
   action: PushAction;
 }
 

@@ -15,17 +15,22 @@ module GildraEvents
 
   # User-facing presentation hints carried alongside the event. Clients should
   # render `title` / `body` verbatim and dispatch on `action` for navigation.
+  # `image_url`, when present, is a square image suitable for an avatar /
+  # thumbnail on both the rich push banner and the in-app notification list.
   class EventUI
-    attr_reader :title, :body, :action
+    attr_reader :title, :body, :image_url, :action
 
-    def initialize(title:, body: nil, action: PushAction.open_notifications)
+    def initialize(title:, body: nil, image_url: nil, action: PushAction.open_notifications)
       @title = title
       @body = body
+      @image_url = image_url
       @action = action
     end
 
     def to_h
-      { 'title' => title, 'body' => body, 'action' => action.to_h }
+      h = { 'title' => title, 'body' => body, 'action' => action.to_h }
+      h['image_url'] = image_url if image_url
+      h
     end
   end
 

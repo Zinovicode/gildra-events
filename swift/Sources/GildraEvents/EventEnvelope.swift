@@ -53,14 +53,29 @@ public struct EntityRef: Codable, Equatable, Sendable {
 
 /// User-facing presentation hints carried alongside the event. Clients should
 /// render `title` / `body` verbatim and dispatch on `action` for navigation.
+/// `imageURL`, when present, is a square image suitable for an avatar /
+/// thumbnail on both the rich push banner (via the Notification Service
+/// Extension) and the in-app notification list.
 public struct EventUI: Codable, Equatable, Sendable {
     public let title: String
     public let body: String?
+    public let imageURL: URL?
     public let action: PushAction
 
-    public init(title: String, body: String? = nil, action: PushAction = .openNotifications) {
+    public init(
+        title: String,
+        body: String? = nil,
+        imageURL: URL? = nil,
+        action: PushAction = .openNotifications
+    ) {
         self.title = title
         self.body = body
+        self.imageURL = imageURL
         self.action = action
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case title, body, action
+        case imageURL = "image_url"
     }
 }
