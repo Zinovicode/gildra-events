@@ -1,0 +1,7 @@
+.DS_Store
+*.gem
+node_modules/
+dist/
+.build/
+.swiftpm/
+Pods/

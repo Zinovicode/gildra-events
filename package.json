@@ -1,0 +1,23 @@
+{
+  "name": "gildra-events",
+  "version": "0.1.0",
+  "description": "Shared Gildra event envelope and push-action types",
+  "main": "typescript/dist/index.js",
+  "types": "typescript/dist/index.d.ts",
+  "files": [
+    "typescript/dist",
+    "typescript/src"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Zinovicode/gildra-events.git"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}
