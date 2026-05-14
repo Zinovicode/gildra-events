@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  swift:
+    name: Swift build
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: swift build
+        run: swift build
+
+  ruby:
+    name: Ruby smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+      - name: Load gem and round-trip an envelope
+        run: |
+          ruby -Iruby/lib -r gildra_events -r json -e '
+            ui = GildraEvents::EventUI.new(
+              title: "ci",
+              body:  "ci",
+              image_url: "https://example.com/x.jpg",
+              action: GildraEvents::PushAction.open_appointment("a1")
+            )
+            env = GildraEvents::Envelope.new(
+              event_type: GildraEvents::EventTypes::APPOINTMENT_REQUESTED,
+              actor: GildraEvents::EntityRef.new(type: "User", id: "u1"),
+              recipient: GildraEvents::EntityRef.new(type: "User", id: "u2"),
+              resource: GildraEvents::EntityRef.new(type: "Appointment", id: "a1"),
+              data: { test: true },
+              ui: ui
+            )
+            JSON.parse(env.to_json)
+            puts "ok #{GildraEvents::VERSION}"
+          '
+
+  typescript:
+    name: TypeScript build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm install
+      - run: npx tsc --noEmit
