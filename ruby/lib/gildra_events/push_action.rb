@@ -53,5 +53,13 @@ module GildraEvents
     def to_json(*args)
       to_h.to_json(*args)
     end
+
+    def self.from_hash(h)
+      return open_notifications if h.nil?
+      h = h.transform_keys(&:to_s) if h.is_a?(Hash)
+      kind = h['kind']
+      params = h.reject { |k, _| k == 'kind' }.transform_keys(&:to_sym)
+      new(kind, params)
+    end
   end
 end
