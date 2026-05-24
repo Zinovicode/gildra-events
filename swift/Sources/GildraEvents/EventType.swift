@@ -26,7 +26,8 @@ public enum EventType {
     public static let contractAccepted      = "contract.accepted"
     public static let contractStarted       = "contract.started"
     public static let contractEnded         = "contract.ended"
-    public static let contractRequestCreated = "contract_request.created"
+    public static let contractRequestCreated  = "contract_request.created"
+    public static let contractRequestDeclined = "contract_request.declined"
 
     // MARK: event (milestone event posts)
     public static let eventCommented        = "event.commented"

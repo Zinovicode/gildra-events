@@ -27,7 +27,8 @@ module GildraEvents
     CONTRACT_ACCEPTED       = 'contract.accepted'
     CONTRACT_STARTED        = 'contract.started'
     CONTRACT_ENDED          = 'contract.ended'
-    CONTRACT_REQUEST_CREATED = 'contract_request.created'
+    CONTRACT_REQUEST_CREATED  = 'contract_request.created'
+    CONTRACT_REQUEST_DECLINED = 'contract_request.declined'
 
     # event (milestone event posts)
     EVENT_COMMENTED         = 'event.commented'
@@ -68,7 +69,8 @@ module GildraEvents
       BOOKING_REQUESTED, BOOKING_CONFIRMED, BOOKING_DECLINED,
       BOOKING_CANCELLED, BOOKING_PAID,
       COMMENT_REACTED,
-      CONTRACT_ACCEPTED, CONTRACT_STARTED, CONTRACT_ENDED, CONTRACT_REQUEST_CREATED,
+      CONTRACT_ACCEPTED, CONTRACT_STARTED, CONTRACT_ENDED,
+      CONTRACT_REQUEST_CREATED, CONTRACT_REQUEST_DECLINED,
       EVENT_COMMENTED, EVENT_REACTED,
       HANDLE_CREATED, HANDLE_UPDATED,
       INVITATION_CREATED, PLACE_INVITATION_CREATED,

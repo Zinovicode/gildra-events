@@ -26,6 +26,7 @@ export const EventType = {
   ContractStarted:         'contract.started',
   ContractEnded:           'contract.ended',
   ContractRequestCreated:  'contract_request.created',
+  ContractRequestDeclined: 'contract_request.declined',
 
   // event (milestone event posts)
   EventCommented:          'event.commented',
