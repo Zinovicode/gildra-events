@@ -1,0 +1,71 @@
+name: Auto-tag on version bump
+
+# Fires when main moves. Reads the version from package.json, validates
+# it matches ruby/lib/gildra_events/version.rb, and creates a matching
+# git tag (v<version>) if one doesn't already exist for that version.
+#
+# Downstream consumers (LM, Notifications, Gildra.Email, Identity, etc.)
+# pin to a tag via `gem 'gildra-events', git: ..., tag: 'vX.Y.Z'`, so the
+# tag is the source-of-truth release marker. Manual tagging was prone to
+# being forgotten after merge — this workflow eliminates that.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history needed to read tags)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Read versions
+        id: ver
+        run: |
+          NPM_VERSION=$(jq -r .version package.json)
+          RUBY_VERSION=$(ruby -e "load 'ruby/lib/gildra_events/version.rb'; puts GildraEvents::VERSION")
+          echo "npm=$NPM_VERSION" >> "$GITHUB_OUTPUT"
+          echo "ruby=$RUBY_VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=v$NPM_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Fail if package.json and Ruby versions diverge
+        if: steps.ver.outputs.npm != steps.ver.outputs.ruby
+        run: |
+          echo "::error::Version mismatch: package.json=${{ steps.ver.outputs.npm }} ruby=${{ steps.ver.outputs.ruby }}"
+          echo "Both must be bumped together. Update ruby/lib/gildra_events/version.rb to match package.json (or vice versa)."
+          exit 1
+
+      - name: Check if tag already exists
+        id: check
+        run: |
+          if git rev-parse "${{ steps.ver.outputs.tag }}" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Tag ${{ steps.ver.outputs.tag }} already exists — skipping. (Bump the version in package.json + ruby/version.rb to release.)"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create + push tag
+        if: steps.check.outputs.exists == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "${{ steps.ver.outputs.tag }}" -m "Release ${{ steps.ver.outputs.tag }}"
+          git push origin "${{ steps.ver.outputs.tag }}"
+
+      - name: Summary
+        run: |
+          if [ "${{ steps.check.outputs.exists }}" = "true" ]; then
+            echo "## No-op — tag already exists" >> "$GITHUB_STEP_SUMMARY"
+            echo "Tag \`${{ steps.ver.outputs.tag }}\` is already published. To release, bump the version in \`package.json\` AND \`ruby/lib/gildra_events/version.rb\` (must match), then merge to main." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "## Released \`${{ steps.ver.outputs.tag }}\`" >> "$GITHUB_STEP_SUMMARY"
+            echo "Downstream consumers can now pin to \`tag: '${{ steps.ver.outputs.tag }}'\` in their Gemfile." >> "$GITHUB_STEP_SUMMARY"
+          fi
