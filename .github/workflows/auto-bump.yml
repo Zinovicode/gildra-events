@@ -1,0 +1,120 @@
+name: Auto-bump version + tag
+
+# Fires when main moves. On every PR merge (or direct push) to main:
+#
+# 1. Reads the current version from package.json + ruby/version.rb.
+# 2. If they ALREADY diverge from HEAD~1 (contributor bumped manually
+#    for a minor/major release), validate they match each other, then
+#    skip the auto-bump and just tag at the current version.
+# 3. Otherwise auto-bump the PATCH segment (e.g. 0.4.0 → 0.4.1), commit
+#    the bump back to main, and tag the new version.
+#
+# Net contributor experience: just merge your PR. The next version is
+# determined automatically. For an intentional minor/major release,
+# edit both manifest files in your PR and the workflow will respect it.
+#
+# GitHub Actions doesn't trigger workflows from GITHUB_TOKEN-pushed
+# commits, so the auto-bump push doesn't recurse. The `if: actor !=`
+# guard is belt-and-suspenders.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  bump-and-tag:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - name: Checkout (full history needed for HEAD~1 diff + tag list)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Read current + previous versions
+        id: ver
+        run: |
+          NPM_CURR=$(jq -r .version package.json)
+          RUBY_CURR=$(ruby -e "load 'ruby/lib/gildra_events/version.rb'; puts GildraEvents::VERSION")
+
+          # HEAD~1 may not exist on a brand-new repo's first commit; handle gracefully.
+          if git rev-parse HEAD~1 >/dev/null 2>&1; then
+            NPM_PREV=$(git show HEAD~1:package.json 2>/dev/null | jq -r .version)
+            RUBY_PREV=$(git show HEAD~1:ruby/lib/gildra_events/version.rb 2>/dev/null | grep -o "VERSION = '[^']*'" | sed "s/VERSION = '//;s/'//")
+          else
+            NPM_PREV="$NPM_CURR"
+            RUBY_PREV="$RUBY_CURR"
+          fi
+
+          echo "npm_current=$NPM_CURR"   >> "$GITHUB_OUTPUT"
+          echo "ruby_current=$RUBY_CURR" >> "$GITHUB_OUTPUT"
+          echo "npm_prev=$NPM_PREV"      >> "$GITHUB_OUTPUT"
+          echo "ruby_prev=$RUBY_PREV"    >> "$GITHUB_OUTPUT"
+
+      - name: Fail if Ruby + npm versions diverge from each other
+        if: steps.ver.outputs.npm_current != steps.ver.outputs.ruby_current
+        run: |
+          echo "::error::Manifest mismatch — package.json=${{ steps.ver.outputs.npm_current }} but ruby/version.rb=${{ steps.ver.outputs.ruby_current }}. Both must match."
+          exit 1
+
+      - name: Decide bump mode
+        id: mode
+        run: |
+          if [ "${{ steps.ver.outputs.npm_current }}" != "${{ steps.ver.outputs.npm_prev }}" ]; then
+            # Contributor already bumped manually in this PR — respect it.
+            echo "mode=manual" >> "$GITHUB_OUTPUT"
+            echo "target=${{ steps.ver.outputs.npm_current }}" >> "$GITHUB_OUTPUT"
+          else
+            # Auto-bump patch segment.
+            IFS='.' read -r MAJOR MINOR PATCH <<< "${{ steps.ver.outputs.npm_current }}"
+            NEXT="$MAJOR.$MINOR.$((PATCH + 1))"
+            echo "mode=auto-patch" >> "$GITHUB_OUTPUT"
+            echo "target=$NEXT" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Apply auto-patch bump to both manifests
+        if: steps.mode.outputs.mode == 'auto-patch'
+        run: |
+          CURR="${{ steps.ver.outputs.npm_current }}"
+          NEXT="${{ steps.mode.outputs.target }}"
+          # package.json
+          jq ".version = \"$NEXT\"" package.json > package.json.tmp && mv package.json.tmp package.json
+          # ruby/lib/gildra_events/version.rb
+          sed -i "s/VERSION = '$CURR'/VERSION = '$NEXT'/" ruby/lib/gildra_events/version.rb
+
+      - name: Commit auto-bump back to main
+        if: steps.mode.outputs.mode == 'auto-patch'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json ruby/lib/gildra_events/version.rb
+          git commit -m "chore: auto-bump version to ${{ steps.mode.outputs.target }}"
+          git push origin main
+
+      - name: Create + push tag
+        run: |
+          TAG="v${{ steps.mode.outputs.target }}"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists — skipping."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "$TAG" -m "Release $TAG"
+          git push origin "$TAG"
+
+      - name: Summary
+        run: |
+          if [ "${{ steps.mode.outputs.mode }}" = "manual" ]; then
+            echo "## Released \`v${{ steps.mode.outputs.target }}\` (manual bump)" >> "$GITHUB_STEP_SUMMARY"
+            echo "Contributor bumped the manifest files in this PR; respected as-is." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "## Released \`v${{ steps.mode.outputs.target }}\` (auto-patch)" >> "$GITHUB_STEP_SUMMARY"
+            echo "Bumped from \`${{ steps.ver.outputs.npm_current }}\` → \`${{ steps.mode.outputs.target }}\` automatically." >> "$GITHUB_STEP_SUMMARY"
+          fi
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "Downstream consumers can pin via \`tag: 'v${{ steps.mode.outputs.target }}'\` in their Gemfile." >> "$GITHUB_STEP_SUMMARY"
