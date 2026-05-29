@@ -57,6 +57,13 @@ module GildraEvents
     POST_COMMENTED          = 'post.commented'
     POST_REACTED            = 'post.reacted'
 
+    # reminder (scheduled-cron-driven email triggers; published by Gildra.Email
+    # cron scripts and consumed by Gildra.Email's listener, so only the listener
+    # process touches Mailtrap. Adding new reminder events here is the standard
+    # path for any future scheduled email surface.)
+    PROFILE_REMINDER_DUE       = 'profile_reminder.due'
+    AVAILABILITY_REMINDER_DUE  = 'availability_reminder.due'
+
     # user
     USER_CREATED            = 'user.created'
     USER_UPDATED            = 'user.updated'
@@ -78,6 +85,7 @@ module GildraEvents
       ORGANIZATION_REQUEST_CREATED, ORGANIZATION_REQUEST_APPROVED,
       PLACE_CREATED,
       POST_CREATED, POST_COMMENTED, POST_REACTED,
+      PROFILE_REMINDER_DUE, AVAILABILITY_REMINDER_DUE,
       USER_CREATED, USER_UPDATED, USER_FOLLOW, USER_UNFOLLOW
     ].freeze
   end
