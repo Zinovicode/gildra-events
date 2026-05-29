@@ -55,6 +55,12 @@ export const EventType = {
   PostCommented:           'post.commented',
   PostReacted:             'post.reacted',
 
+  // reminder (scheduled-cron-driven email triggers; published by Gildra.Email
+  // cron scripts and consumed by Gildra.Email's listener so only the listener
+  // process touches Mailtrap.)
+  ProfileReminderDue:        'profile_reminder.due',
+  AvailabilityReminderDue:   'availability_reminder.due',
+
   // user
   UserCreated:             'user.created',
   UserUpdated:             'user.updated',

@@ -56,6 +56,12 @@ public enum EventType {
     public static let postCommented         = "post.commented"
     public static let postReacted           = "post.reacted"
 
+    // MARK: reminder (scheduled-cron-driven email triggers; published by
+    // Gildra.Email's cron scripts and consumed by Gildra.Email's listener so
+    // only the listener process touches Mailtrap.)
+    public static let profileReminderDue       = "profile_reminder.due"
+    public static let availabilityReminderDue  = "availability_reminder.due"
+
     // MARK: user
     public static let userCreated           = "user.created"
     public static let userUpdated           = "user.updated"
