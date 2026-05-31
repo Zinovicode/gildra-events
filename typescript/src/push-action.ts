@@ -4,7 +4,7 @@
 
 export type PushAction =
   | { kind: 'open_appointment'; appointment_id: string }
-  | { kind: 'open_chat'; handle: string }
+  | { kind: 'open_chat'; handle: string; conversation_id?: string }
   | { kind: 'open_profile'; handle: string }
   | { kind: 'open_notifications' }
   | { kind: 'open_url'; url: string }
@@ -13,8 +13,8 @@ export type PushAction =
 export const PushAction = {
   openAppointment: (appointment_id: string): PushAction =>
     ({ kind: 'open_appointment', appointment_id }),
-  openChat: (handle: string): PushAction =>
-    ({ kind: 'open_chat', handle }),
+  openChat: (handle: string, conversation_id?: string): PushAction =>
+    conversation_id ? { kind: 'open_chat', handle, conversation_id } : { kind: 'open_chat', handle },
   openProfile: (handle: string): PushAction =>
     ({ kind: 'open_profile', handle }),
   openNotifications: (): PushAction =>

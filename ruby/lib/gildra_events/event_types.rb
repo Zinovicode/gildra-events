@@ -57,6 +57,9 @@ module GildraEvents
     POST_COMMENTED          = 'post.commented'
     POST_REACTED            = 'post.reacted'
 
+    # message (chat messages — consumed by Notifications MessageHandler for push)
+    MESSAGE_CREATED         = 'message.created'
+
     # reminder (scheduled-cron-driven email triggers; published by Gildra.Email
     # cron scripts and consumed by Gildra.Email's listener, so only the listener
     # process touches Mailtrap. Adding new reminder events here is the standard
@@ -85,6 +88,7 @@ module GildraEvents
       ORGANIZATION_REQUEST_CREATED, ORGANIZATION_REQUEST_APPROVED,
       PLACE_CREATED,
       POST_CREATED, POST_COMMENTED, POST_REACTED,
+      MESSAGE_CREATED,
       PROFILE_REMINDER_DUE, AVAILABILITY_REMINDER_DUE,
       USER_CREATED, USER_UPDATED, USER_FOLLOW, USER_UNFOLLOW
     ].freeze

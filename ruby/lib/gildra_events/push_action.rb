@@ -26,8 +26,10 @@ module GildraEvents
       new(KIND_OPEN_APPOINTMENT, appointment_id: appointment_id)
     end
 
-    def self.open_chat(handle)
-      new(KIND_OPEN_CHAT, handle: handle)
+    def self.open_chat(handle, conversation_id = nil)
+      params = { handle: handle }
+      params[:conversation_id] = conversation_id if conversation_id
+      new(KIND_OPEN_CHAT, params)
     end
 
     def self.open_profile(handle)
