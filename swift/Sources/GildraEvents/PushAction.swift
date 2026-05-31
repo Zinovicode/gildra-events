@@ -8,7 +8,7 @@ public enum PushAction: Equatable, Sendable {
     /// Switch to the artist's My Book tab and push AppointmentDetailView.
     case openAppointment(appointmentId: String)
     /// Switch to the Messages tab and open the conversation with `handle`.
-    case openChat(handle: String)
+    case openChat(handle: String, conversationId: String?)
     /// Push ProfileView for `handle`.
     case openProfile(handle: String)
     /// Switch to the Notifications tab. Default fallback when no richer action fits.
@@ -33,6 +33,7 @@ extension PushAction: Codable {
         case kind
         case appointmentId = "appointment_id"
         case handle
+        case conversationId = "conversation_id"
         case url
     }
 
@@ -43,7 +44,10 @@ extension PushAction: Codable {
         case .openAppointment:
             self = .openAppointment(appointmentId: try container.decode(String.self, forKey: .appointmentId))
         case .openChat:
-            self = .openChat(handle: try container.decode(String.self, forKey: .handle))
+            self = .openChat(
+                handle: try container.decode(String.self, forKey: .handle),
+                conversationId: try container.decodeIfPresent(String.self, forKey: .conversationId)
+            )
         case .openProfile:
             self = .openProfile(handle: try container.decode(String.self, forKey: .handle))
         case .openNotifications:
@@ -61,9 +65,10 @@ extension PushAction: Codable {
         case .openAppointment(let id):
             try container.encode(Kind.openAppointment, forKey: .kind)
             try container.encode(id, forKey: .appointmentId)
-        case .openChat(let handle):
+        case .openChat(let handle, let conversationId):
             try container.encode(Kind.openChat, forKey: .kind)
             try container.encode(handle, forKey: .handle)
+            try container.encodeIfPresent(conversationId, forKey: .conversationId)
         case .openProfile(let handle):
             try container.encode(Kind.openProfile, forKey: .kind)
             try container.encode(handle, forKey: .handle)

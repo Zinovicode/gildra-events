@@ -56,6 +56,9 @@ public enum EventType {
     public static let postCommented         = "post.commented"
     public static let postReacted           = "post.reacted"
 
+    // MARK: message (chat messages — consumed by Notifications MessageHandler for push)
+    public static let messageCreated        = "message.created"
+
     // MARK: reminder (scheduled-cron-driven email triggers; published by
     // Gildra.Email's cron scripts and consumed by Gildra.Email's listener so
     // only the listener process touches Mailtrap.)

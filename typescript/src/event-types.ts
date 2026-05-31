@@ -55,6 +55,9 @@ export const EventType = {
   PostCommented:           'post.commented',
   PostReacted:             'post.reacted',
 
+  // message (chat messages — consumed by Notifications MessageHandler for push)
+  MessageCreated:          'message.created',
+
   // reminder (scheduled-cron-driven email triggers; published by Gildra.Email
   // cron scripts and consumed by Gildra.Email's listener so only the listener
   // process touches Mailtrap.)
