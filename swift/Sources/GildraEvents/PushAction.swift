@@ -11,6 +11,8 @@ public enum PushAction: Equatable, Sendable {
     case openChat(handle: String, conversationId: String?)
     /// Push ProfileView for `handle`.
     case openProfile(handle: String)
+    /// Push PlaceDetailView for `placeId`.
+    case openPlace(placeId: String)
     /// Switch to the Notifications tab. Default fallback when no richer action fits.
     case openNotifications
     /// Open an arbitrary URL in an in-app web view.
@@ -24,6 +26,7 @@ extension PushAction: Codable {
         case openAppointment = "open_appointment"
         case openChat = "open_chat"
         case openProfile = "open_profile"
+        case openPlace = "open_place"
         case openNotifications = "open_notifications"
         case openURL = "open_url"
         case none = "none"
@@ -33,6 +36,7 @@ extension PushAction: Codable {
         case kind
         case appointmentId = "appointment_id"
         case handle
+        case placeId = "place_id"
         case conversationId = "conversation_id"
         case url
     }
@@ -50,6 +54,8 @@ extension PushAction: Codable {
             )
         case .openProfile:
             self = .openProfile(handle: try container.decode(String.self, forKey: .handle))
+        case .openPlace:
+            self = .openPlace(placeId: try container.decode(String.self, forKey: .placeId))
         case .openNotifications:
             self = .openNotifications
         case .openURL:
@@ -72,6 +78,9 @@ extension PushAction: Codable {
         case .openProfile(let handle):
             try container.encode(Kind.openProfile, forKey: .kind)
             try container.encode(handle, forKey: .handle)
+        case .openPlace(let placeId):
+            try container.encode(Kind.openPlace, forKey: .kind)
+            try container.encode(placeId, forKey: .placeId)
         case .openNotifications:
             try container.encode(Kind.openNotifications, forKey: .kind)
         case .openURL(let url):
