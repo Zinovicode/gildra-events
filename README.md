@@ -7,7 +7,7 @@ This repo carries three sibling language packages — Swift (SPM), Ruby (gem), a
 ## What's here
 
 - **Envelope** — the canonical wrapper around every Gildra event. Fields: `event_type`, `schema_version`, `occurred_at`, `actor`, `recipient`, `resource`, `data`, `ui`.
-- **PushAction** — discriminated union describing what an iOS / web client should do when the user taps a notification (`open_appointment`, `open_chat`, `open_profile`, `open_url`, `open_notifications`, `none`).
+- **PushAction** — discriminated union describing what an iOS / web client should do when the user taps a notification (`open_appointment`, `open_chat`, `open_profile`, `open_place`, `open_url`, `open_notifications`, `none`).
 
 For v0.1.0 the scope is deliberately narrow: just the envelope shape and `PushAction`. Existing event handlers in LocationsManager / Notifications continue to publish in their current ad-hoc form. The first real consumer is the iOS push payload — `Notifications/FcmService` serializes a `PushAction` into the FCM `data.action` field, and the iOS app decodes it to deep-link the user.
 
@@ -66,6 +66,7 @@ gem 'gildra-events',
 | `open_appointment` | `appointment_id` | Switch to My Book tab → push AppointmentDetailView |
 | `open_chat` | `handle` | Switch to Messages tab → open conversation |
 | `open_profile` | `handle` | Push ProfileView |
+| `open_place` | `place_id` | Push PlaceDetailView |
 | `open_notifications` | — | Switch to Notifications tab (default fallback) |
 | `open_url` | `url` | In-app web view |
 | `none` | — | No navigation on tap |
