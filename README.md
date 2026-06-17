@@ -59,6 +59,55 @@ gem 'gildra-events',
 }
 ```
 
+## Event types
+
+| `event_type` | Group | Notes |
+|---|---|---|
+| `appointment.requested` | appointment | |
+| `appointment.confirmed` | appointment | |
+| `appointment.declined` | appointment | |
+| `appointment.cancelled` | appointment | |
+| `appointment.completed` | appointment | |
+| `booking.requested` | booking | |
+| `booking.confirmed` | booking | |
+| `booking.declined` | booking | |
+| `booking.cancelled` | booking | |
+| `booking.paid` | booking | |
+| `comment.reacted` | comment | |
+| `contract.accepted` | contract | |
+| `contract.started` | contract | |
+| `contract.ended` | contract | |
+| `contract_request.created` | contract | |
+| `contract_request.declined` | contract | |
+| `event.commented` | event | Milestone event posts |
+| `event.reacted` | event | Milestone event posts |
+| `handle.created` | handle | |
+| `handle.updated` | handle | |
+| `invitation.created` | invitation | |
+| `place_invitation.created` | invitation | |
+| `invitation.accepted` | invitation | |
+| `organization.created` | organization | |
+| `organization.updated` | organization | |
+| `organization.user_added` | organization | |
+| `organization_request.created` | organization | |
+| `organization_request.approved` | organization | |
+| `empire.created` | empire | Identity-owned; supersedes `organization.created` for new empires |
+| `empire_invitation.created` | empire | Identity-owned empire onboarding (see Identity's EmpireEvents publisher) |
+| `empire_invitation.accepted` | empire | |
+| `empire_invitation.declined` | empire | |
+| `empire_membership.role_changed` | empire | |
+| `place.created` | place | |
+| `post.created` | post | |
+| `post.commented` | post | |
+| `post.reacted` | post | |
+| `message.created` | message | Chat messages — consumed by Notifications MessageHandler for push |
+| `profile_reminder.due` | reminder | Scheduled cron-driven email trigger |
+| `availability_reminder.due` | reminder | Scheduled cron-driven email trigger |
+| `user.created` | user | |
+| `user.updated` | user | |
+| `user.follow` | user | |
+| `user.unfollow` | user | |
+
 ## PushAction kinds
 
 | `kind` | Required fields | iOS behavior |

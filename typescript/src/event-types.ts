@@ -39,6 +39,7 @@ export const EventType = {
   // invitation
   InvitationCreated:       'invitation.created',
   PlaceInvitationCreated:  'place_invitation.created',
+  InvitationAccepted:      'invitation.accepted',
 
   // organization
   OrganizationCreated:     'organization.created',
@@ -46,6 +47,13 @@ export const EventType = {
   OrganizationUserAdded:   'organization.user_added',
   OrganizationRequestCreated:  'organization_request.created',
   OrganizationRequestApproved: 'organization_request.approved',
+
+  // empire (Identity-owned; supersedes organization.created for new empires)
+  EmpireCreated:                 'empire.created',
+  EmpireInvitationCreated:       'empire_invitation.created',
+  EmpireInvitationAccepted:      'empire_invitation.accepted',
+  EmpireInvitationDeclined:      'empire_invitation.declined',
+  EmpireMembershipRoleChanged:   'empire_membership.role_changed',
 
   // place
   PlaceCreated:            'place.created',

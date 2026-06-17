@@ -41,6 +41,7 @@ module GildraEvents
     # invitation
     INVITATION_CREATED      = 'invitation.created'
     PLACE_INVITATION_CREATED = 'place_invitation.created'
+    INVITATION_ACCEPTED      = 'invitation.accepted'
 
     # organization
     ORGANIZATION_CREATED    = 'organization.created'
@@ -48,6 +49,14 @@ module GildraEvents
     ORGANIZATION_USER_ADDED = 'organization.user_added'
     ORGANIZATION_REQUEST_CREATED  = 'organization_request.created'
     ORGANIZATION_REQUEST_APPROVED = 'organization_request.approved'
+
+    # empire (Identity-owned empire onboarding/management; see Identity's
+    # EmpireEvents publisher). Supersedes organization.created for new empires.
+    EMPIRE_CREATED                  = 'empire.created'
+    EMPIRE_INVITATION_CREATED       = 'empire_invitation.created'
+    EMPIRE_INVITATION_ACCEPTED      = 'empire_invitation.accepted'
+    EMPIRE_INVITATION_DECLINED      = 'empire_invitation.declined'
+    EMPIRE_MEMBERSHIP_ROLE_CHANGED  = 'empire_membership.role_changed'
 
     # place
     PLACE_CREATED           = 'place.created'
@@ -83,9 +92,11 @@ module GildraEvents
       CONTRACT_REQUEST_CREATED, CONTRACT_REQUEST_DECLINED,
       EVENT_COMMENTED, EVENT_REACTED,
       HANDLE_CREATED, HANDLE_UPDATED,
-      INVITATION_CREATED, PLACE_INVITATION_CREATED,
+      INVITATION_CREATED, PLACE_INVITATION_CREATED, INVITATION_ACCEPTED,
       ORGANIZATION_CREATED, ORGANIZATION_UPDATED, ORGANIZATION_USER_ADDED,
       ORGANIZATION_REQUEST_CREATED, ORGANIZATION_REQUEST_APPROVED,
+      EMPIRE_CREATED, EMPIRE_INVITATION_CREATED, EMPIRE_INVITATION_ACCEPTED,
+      EMPIRE_INVITATION_DECLINED, EMPIRE_MEMBERSHIP_ROLE_CHANGED,
       PLACE_CREATED,
       POST_CREATED, POST_COMMENTED, POST_REACTED,
       MESSAGE_CREATED,
