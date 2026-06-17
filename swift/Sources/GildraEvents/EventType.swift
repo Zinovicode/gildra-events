@@ -40,6 +40,7 @@ public enum EventType {
     // MARK: invitation
     public static let invitationCreated     = "invitation.created"
     public static let placeInvitationCreated = "place_invitation.created"
+    public static let invitationAccepted    = "invitation.accepted"
 
     // MARK: organization
     public static let organizationCreated   = "organization.created"
@@ -47,6 +48,13 @@ public enum EventType {
     public static let organizationUserAdded = "organization.user_added"
     public static let organizationRequestCreated  = "organization_request.created"
     public static let organizationRequestApproved = "organization_request.approved"
+
+    // MARK: empire (Identity-owned; supersedes organization.created for new empires)
+    public static let empireCreated                = "empire.created"
+    public static let empireInvitationCreated      = "empire_invitation.created"
+    public static let empireInvitationAccepted     = "empire_invitation.accepted"
+    public static let empireInvitationDeclined     = "empire_invitation.declined"
+    public static let empireMembershipRoleChanged  = "empire_membership.role_changed"
 
     // MARK: place
     public static let placeCreated          = "place.created"
