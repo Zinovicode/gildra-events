@@ -30,6 +30,7 @@ module GildraEvents
     CONTRACT_REQUEST_CREATED  = 'contract_request.created'
     CONTRACT_REQUEST_DECLINED = 'contract_request.declined'
     CONTRACT_REQUEST_OWNER_DECLINED = 'contract_request.owner_declined'
+    CONTRACT_REQUEST_APPROVED = 'contract_request.approved'
 
     # event (milestone event posts)
     EVENT_COMMENTED         = 'event.commented'
@@ -91,6 +92,7 @@ module GildraEvents
       COMMENT_REACTED,
       CONTRACT_ACCEPTED, CONTRACT_STARTED, CONTRACT_ENDED,
       CONTRACT_REQUEST_CREATED, CONTRACT_REQUEST_DECLINED, CONTRACT_REQUEST_OWNER_DECLINED,
+      CONTRACT_REQUEST_APPROVED,
       EVENT_COMMENTED, EVENT_REACTED,
       HANDLE_CREATED, HANDLE_UPDATED,
       INVITATION_CREATED, PLACE_INVITATION_CREATED, INVITATION_ACCEPTED,
