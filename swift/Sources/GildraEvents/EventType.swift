@@ -78,4 +78,12 @@ public enum EventType {
     public static let userUpdated           = "user.updated"
     public static let userFollow            = "user.follow"
     public static let userUnfollow          = "user.unfollow"
+
+    // MARK: payment / receipt (Billing payment lifecycle; consumers: Notifications + Email)
+    public static let paymentHoldPlaced         = "payment.hold_placed"
+    public static let paymentHoldFailed         = "payment.hold_failed"
+    public static let paymentCaptureFailed      = "payment.capture_failed"
+    public static let paymentBankDebitInitiated = "payment.bank_debit_initiated"
+    public static let paymentBankDebitFailed    = "payment.bank_debit_failed"
+    public static let receiptIssued             = "receipt.issued"
 }

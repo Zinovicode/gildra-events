@@ -77,6 +77,14 @@ export const EventType = {
   UserUpdated:             'user.updated',
   UserFollow:              'user.follow',
   UserUnfollow:            'user.unfollow',
+
+  // payment / receipt (Billing payment lifecycle; consumers: Notifications + Email)
+  PaymentHoldPlaced:          'payment.hold_placed',
+  PaymentHoldFailed:          'payment.hold_failed',
+  PaymentCaptureFailed:       'payment.capture_failed',
+  PaymentBankDebitInitiated:  'payment.bank_debit_initiated',
+  PaymentBankDebitFailed:     'payment.bank_debit_failed',
+  ReceiptIssued:              'receipt.issued',
 } as const;
 
 export type EventTypeName = typeof EventType[keyof typeof EventType];
