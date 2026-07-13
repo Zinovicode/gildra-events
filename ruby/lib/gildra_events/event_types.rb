@@ -12,6 +12,9 @@ module GildraEvents
     APPOINTMENT_DECLINED    = 'appointment.declined'
     APPOINTMENT_CANCELLED   = 'appointment.cancelled'
     APPOINTMENT_COMPLETED   = 'appointment.completed'
+    # artist-initiated invite lifecycle (recipient = client)
+    APPOINTMENT_INVITED          = 'appointment.invited'
+    APPOINTMENT_INVITE_REMINDER  = 'appointment.invite_reminder'
 
     # booking
     BOOKING_REQUESTED       = 'booking.requested'
@@ -104,6 +107,7 @@ module GildraEvents
     ALL = [
       APPOINTMENT_REQUESTED, APPOINTMENT_CONFIRMED, APPOINTMENT_DECLINED,
       APPOINTMENT_CANCELLED, APPOINTMENT_COMPLETED,
+      APPOINTMENT_INVITED, APPOINTMENT_INVITE_REMINDER,
       BOOKING_REQUESTED, BOOKING_CONFIRMED, BOOKING_DECLINED,
       BOOKING_CANCELLED, BOOKING_PAID,
       COMMENT_REACTED,
