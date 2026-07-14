@@ -16,6 +16,7 @@ export const EventType = {
   // client's response to an invite (recipient = artist)
   AppointmentInviteAccepted:  'appointment.invite_accepted',
   AppointmentInviteDeclined:  'appointment.invite_declined',
+  AppointmentInviteViewed:    'appointment.invite_viewed',
 
   // booking
   BookingRequested:        'booking.requested',
