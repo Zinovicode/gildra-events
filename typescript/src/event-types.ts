@@ -13,6 +13,9 @@ export const EventType = {
   // artist-initiated invite lifecycle (recipient = client)
   AppointmentInvited:         'appointment.invited',
   AppointmentInviteReminder:  'appointment.invite_reminder',
+  // client's response to an invite (recipient = artist)
+  AppointmentInviteAccepted:  'appointment.invite_accepted',
+  AppointmentInviteDeclined:  'appointment.invite_declined',
 
   // booking
   BookingRequested:        'booking.requested',
