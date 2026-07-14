@@ -14,6 +14,9 @@ public enum EventType {
     // artist-initiated invite lifecycle (recipient = client)
     public static let appointmentInvited        = "appointment.invited"
     public static let appointmentInviteReminder = "appointment.invite_reminder"
+    // client's response to an invite (recipient = artist)
+    public static let appointmentInviteAccepted = "appointment.invite_accepted"
+    public static let appointmentInviteDeclined = "appointment.invite_declined"
 
     // MARK: booking
     public static let bookingRequested      = "booking.requested"
