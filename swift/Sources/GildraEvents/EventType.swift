@@ -17,6 +17,7 @@ public enum EventType {
     // client's response to an invite (recipient = artist)
     public static let appointmentInviteAccepted = "appointment.invite_accepted"
     public static let appointmentInviteDeclined = "appointment.invite_declined"
+    public static let appointmentInviteViewed   = "appointment.invite_viewed"
 
     // MARK: booking
     public static let bookingRequested      = "booking.requested"

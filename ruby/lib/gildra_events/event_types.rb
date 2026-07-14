@@ -18,6 +18,7 @@ module GildraEvents
     # client's response to an invite (recipient = artist)
     APPOINTMENT_INVITE_ACCEPTED  = 'appointment.invite_accepted'
     APPOINTMENT_INVITE_DECLINED  = 'appointment.invite_declined'
+    APPOINTMENT_INVITE_VIEWED    = 'appointment.invite_viewed'
 
     # booking
     BOOKING_REQUESTED       = 'booking.requested'
@@ -112,6 +113,7 @@ module GildraEvents
       APPOINTMENT_CANCELLED, APPOINTMENT_COMPLETED,
       APPOINTMENT_INVITED, APPOINTMENT_INVITE_REMINDER,
       APPOINTMENT_INVITE_ACCEPTED, APPOINTMENT_INVITE_DECLINED,
+      APPOINTMENT_INVITE_VIEWED,
       BOOKING_REQUESTED, BOOKING_CONFIRMED, BOOKING_DECLINED,
       BOOKING_CANCELLED, BOOKING_PAID,
       COMMENT_REACTED,
