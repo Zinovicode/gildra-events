@@ -92,5 +92,5 @@ public enum EventType {
     public static let paymentCaptureFailed      = "payment.capture_failed"
     public static let paymentBankDebitInitiated = "payment.bank_debit_initiated"
     public static let paymentBankDebitFailed    = "payment.bank_debit_failed"
-    public static let receiptIssued             = "receipt.issued"
+    public static let paymentCaptureSucceeded   = "payment.capture_succeeded"
 }
