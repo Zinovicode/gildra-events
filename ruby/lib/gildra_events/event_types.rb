@@ -100,13 +100,14 @@ module GildraEvents
     #   hold_placed:            stripe_payment_intent_id, hold_date
     #   hold_failed/capture_failed/bank_debit_failed: failure_code, failure_message
     #   bank_debit_initiated:   stripe_payment_intent_id
-    #   receipt.issued:         receipt_id, receipt_number, total, currency, paid_at, payee
+    #   capture_succeeded:      funds confirmed (card capture OR bank settlement) —
+    #                           receipt_id, receipt_number, total, currency, paid_at, payee
     PAYMENT_HOLD_PLACED          = 'payment.hold_placed'
     PAYMENT_HOLD_FAILED          = 'payment.hold_failed'
     PAYMENT_CAPTURE_FAILED       = 'payment.capture_failed'
     PAYMENT_BANK_DEBIT_INITIATED = 'payment.bank_debit_initiated'
     PAYMENT_BANK_DEBIT_FAILED    = 'payment.bank_debit_failed'
-    RECEIPT_ISSUED               = 'receipt.issued'
+    PAYMENT_CAPTURE_SUCCEEDED    = 'payment.capture_succeeded'
 
     ALL = [
       APPOINTMENT_REQUESTED, APPOINTMENT_CONFIRMED, APPOINTMENT_DECLINED,
@@ -133,7 +134,7 @@ module GildraEvents
       PROFILE_REMINDER_DUE, AVAILABILITY_REMINDER_DUE,
       USER_CREATED, USER_UPDATED, USER_FOLLOW, USER_UNFOLLOW,
       PAYMENT_HOLD_PLACED, PAYMENT_HOLD_FAILED, PAYMENT_CAPTURE_FAILED,
-      PAYMENT_BANK_DEBIT_INITIATED, PAYMENT_BANK_DEBIT_FAILED, RECEIPT_ISSUED
+      PAYMENT_BANK_DEBIT_INITIATED, PAYMENT_BANK_DEBIT_FAILED, PAYMENT_CAPTURE_SUCCEEDED
     ].freeze
   end
 end

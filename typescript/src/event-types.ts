@@ -91,7 +91,7 @@ export const EventType = {
   PaymentCaptureFailed:       'payment.capture_failed',
   PaymentBankDebitInitiated:  'payment.bank_debit_initiated',
   PaymentBankDebitFailed:     'payment.bank_debit_failed',
-  ReceiptIssued:              'receipt.issued',
+  PaymentCaptureSucceeded:    'payment.capture_succeeded',
 } as const;
 
 export type EventTypeName = typeof EventType[keyof typeof EventType];
