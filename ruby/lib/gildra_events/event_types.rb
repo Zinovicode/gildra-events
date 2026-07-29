@@ -19,6 +19,12 @@ module GildraEvents
     APPOINTMENT_INVITE_ACCEPTED  = 'appointment.invite_accepted'
     APPOINTMENT_INVITE_DECLINED  = 'appointment.invite_declined'
     APPOINTMENT_INVITE_VIEWED    = 'appointment.invite_viewed'
+    # rescheduling (recipient noted per event)
+    APPOINTMENT_RESCHEDULED          = 'appointment.rescheduled'          # artist moved it → client
+    APPOINTMENT_RESCHEDULE_REQUESTED = 'appointment.reschedule_requested' # client asked → artist
+    APPOINTMENT_RESCHEDULE_APPROVED  = 'appointment.reschedule_approved'  # → client
+    APPOINTMENT_RESCHEDULE_DECLINED  = 'appointment.reschedule_declined'  # → client (also used for expiry, expired: true)
+    APPOINTMENT_REQUEST_UPDATED      = 'appointment.request_updated'      # pending edit → other party
 
     # booking
     BOOKING_REQUESTED       = 'booking.requested'
@@ -115,6 +121,9 @@ module GildraEvents
       APPOINTMENT_INVITED, APPOINTMENT_INVITE_REMINDER,
       APPOINTMENT_INVITE_ACCEPTED, APPOINTMENT_INVITE_DECLINED,
       APPOINTMENT_INVITE_VIEWED,
+      APPOINTMENT_RESCHEDULED, APPOINTMENT_RESCHEDULE_REQUESTED,
+      APPOINTMENT_RESCHEDULE_APPROVED, APPOINTMENT_RESCHEDULE_DECLINED,
+      APPOINTMENT_REQUEST_UPDATED,
       BOOKING_REQUESTED, BOOKING_CONFIRMED, BOOKING_DECLINED,
       BOOKING_CANCELLED, BOOKING_PAID,
       COMMENT_REACTED,

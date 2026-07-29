@@ -17,6 +17,12 @@ export const EventType = {
   AppointmentInviteAccepted:  'appointment.invite_accepted',
   AppointmentInviteDeclined:  'appointment.invite_declined',
   AppointmentInviteViewed:    'appointment.invite_viewed',
+  // rescheduling (recipient noted per event)
+  AppointmentRescheduled:          'appointment.rescheduled',
+  AppointmentRescheduleRequested:  'appointment.reschedule_requested',
+  AppointmentRescheduleApproved:   'appointment.reschedule_approved',
+  AppointmentRescheduleDeclined:   'appointment.reschedule_declined',
+  AppointmentRequestUpdated:       'appointment.request_updated',
 
   // booking
   BookingRequested:        'booking.requested',
