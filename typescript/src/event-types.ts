@@ -23,6 +23,10 @@ export const EventType = {
   AppointmentRescheduleApproved:   'appointment.reschedule_approved',
   AppointmentRescheduleDeclined:   'appointment.reschedule_declined',
   AppointmentRequestUpdated:       'appointment.request_updated',
+  // daily reminder sweep from LM (recipient = client). `reminder_kinds` in
+  // the payload says which of cancel_cutoff / reschedule_cutoff / appointment
+  // fired — they collapse into one event per appointment per local day.
+  AppointmentReminder:             'appointment.reminder',
 
   // booking
   BookingRequested:        'booking.requested',
