@@ -68,6 +68,7 @@ gem 'gildra-events',
 | `appointment.declined` | appointment | |
 | `appointment.cancelled` | appointment | |
 | `appointment.completed` | appointment | |
+| `appointment.reminder` | appointment | Daily reminder sweep from LM (recipient = client); covers cancel cutoff, reschedule cutoff, and the appointment itself — collapsed into one event per appointment per local day |
 | `booking.requested` | booking | |
 | `booking.confirmed` | booking | |
 | `booking.declined` | booking | |

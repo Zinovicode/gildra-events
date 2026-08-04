@@ -18,6 +18,10 @@ public enum EventType {
     public static let appointmentInviteAccepted = "appointment.invite_accepted"
     public static let appointmentInviteDeclined = "appointment.invite_declined"
     public static let appointmentInviteViewed   = "appointment.invite_viewed"
+    // daily reminder sweep from LM (recipient = client). `reminder_kinds` in
+    // the payload says which of cancel_cutoff / reschedule_cutoff / appointment
+    // fired — they collapse into one event per appointment per local day.
+    public static let appointmentReminder       = "appointment.reminder"
 
     // MARK: booking
     public static let bookingRequested      = "booking.requested"
