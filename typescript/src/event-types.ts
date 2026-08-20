@@ -102,6 +102,9 @@ export const EventType = {
   PaymentBankDebitInitiated:  'payment.bank_debit_initiated',
   PaymentBankDebitFailed:     'payment.bank_debit_failed',
   PaymentCaptureSucceeded:    'payment.capture_succeeded',
+
+  // artist_service (artist announces a new service / price change; consumers: Notifications + Email)
+  ArtistServiceAnnounced:  'artist_service.announced',
 } as const;
 
 export type EventTypeName = typeof EventType[keyof typeof EventType];
