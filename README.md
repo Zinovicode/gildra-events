@@ -108,6 +108,7 @@ gem 'gildra-events',
 | `user.updated` | user | |
 | `user.follow` | user | |
 | `user.unfollow` | user | |
+| `artist_service.announced` | artist_service | Artist announces a new service or price change to their clients and followers; published per-recipient by LM. Consumers: Notifications (in-app + push) + Email |
 
 ## PushAction kinds
 

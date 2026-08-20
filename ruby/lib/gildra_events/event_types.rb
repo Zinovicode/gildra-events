@@ -119,6 +119,11 @@ module GildraEvents
     PAYMENT_BANK_DEBIT_FAILED    = 'payment.bank_debit_failed'
     PAYMENT_CAPTURE_SUCCEEDED    = 'payment.capture_succeeded'
 
+    # artist_service (artist announces a new service or a price change to
+    # their clients + followers; published per-recipient by LM. Consumers:
+    # Notifications (in-app + push) + Email.)
+    ARTIST_SERVICE_ANNOUNCED = 'artist_service.announced'
+
     ALL = [
       APPOINTMENT_REQUESTED, APPOINTMENT_CONFIRMED, APPOINTMENT_DECLINED,
       APPOINTMENT_CANCELLED, APPOINTMENT_COMPLETED,
@@ -148,7 +153,8 @@ module GildraEvents
       PROFILE_REMINDER_DUE, AVAILABILITY_REMINDER_DUE,
       USER_CREATED, USER_UPDATED, USER_FOLLOW, USER_UNFOLLOW,
       PAYMENT_HOLD_PLACED, PAYMENT_HOLD_FAILED, PAYMENT_CAPTURE_FAILED,
-      PAYMENT_BANK_DEBIT_INITIATED, PAYMENT_BANK_DEBIT_FAILED, PAYMENT_CAPTURE_SUCCEEDED
+      PAYMENT_BANK_DEBIT_INITIATED, PAYMENT_BANK_DEBIT_FAILED, PAYMENT_CAPTURE_SUCCEEDED,
+      ARTIST_SERVICE_ANNOUNCED
     ].freeze
   end
 end

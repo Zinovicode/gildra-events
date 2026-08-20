@@ -97,4 +97,7 @@ public enum EventType {
     public static let paymentBankDebitInitiated = "payment.bank_debit_initiated"
     public static let paymentBankDebitFailed    = "payment.bank_debit_failed"
     public static let paymentCaptureSucceeded   = "payment.capture_succeeded"
+
+    // MARK: artist_service (artist announces a new service / price change; consumers: Notifications + Email)
+    public static let artistServiceAnnounced = "artist_service.announced"
 }
