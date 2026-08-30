@@ -77,6 +77,10 @@ module GildraEvents
     EMPIRE_INVITATION_DECLINED      = 'empire_invitation.declined'
     EMPIRE_MEMBERSHIP_ROLE_CHANGED  = 'empire_membership.role_changed'
 
+    # search analytics (LM cron-published, consumed by Gildra.Email only —
+    # no TS/Swift mirror needed until a client consumes it)
+    SEARCH_GAP_DIGEST_READY = 'search.gap_digest_ready'
+
     # place
     PLACE_CREATED           = 'place.created'
 
@@ -147,6 +151,7 @@ module GildraEvents
       ORGANIZATION_REQUEST_CREATED, ORGANIZATION_REQUEST_APPROVED,
       EMPIRE_CREATED, EMPIRE_INVITATION_CREATED, EMPIRE_INVITATION_ACCEPTED,
       EMPIRE_INVITATION_DECLINED, EMPIRE_MEMBERSHIP_ROLE_CHANGED,
+      SEARCH_GAP_DIGEST_READY,
       PLACE_CREATED,
       POST_CREATED, POST_COMMENTED, POST_REACTED,
       MESSAGE_CREATED,
