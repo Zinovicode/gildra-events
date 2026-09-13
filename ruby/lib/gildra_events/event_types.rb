@@ -25,6 +25,9 @@ module GildraEvents
     APPOINTMENT_RESCHEDULE_APPROVED  = 'appointment.reschedule_approved'  # → client
     APPOINTMENT_RESCHEDULE_DECLINED  = 'appointment.reschedule_declined'  # → client (also used for expiry, expired: true)
     APPOINTMENT_REQUEST_UPDATED      = 'appointment.request_updated'      # pending edit → other party
+    # take-home products on a booked visit changed (client or artist) → other party.
+    # Payload carries the products_added / products_removed / products_changed diff.
+    APPOINTMENT_PRODUCTS_UPDATED     = 'appointment.products_updated'
     # daily reminder sweep from LM (recipient = client). `reminder_kinds` in
     # the payload says which of cancel_cutoff / reschedule_cutoff / appointment
     # fired — they collapse into one event per appointment per local day.
@@ -136,7 +139,7 @@ module GildraEvents
       APPOINTMENT_INVITE_VIEWED,
       APPOINTMENT_RESCHEDULED, APPOINTMENT_RESCHEDULE_REQUESTED,
       APPOINTMENT_RESCHEDULE_APPROVED, APPOINTMENT_RESCHEDULE_DECLINED,
-      APPOINTMENT_REQUEST_UPDATED,
+      APPOINTMENT_REQUEST_UPDATED, APPOINTMENT_PRODUCTS_UPDATED,
       APPOINTMENT_REMINDER,
       BOOKING_REQUESTED, BOOKING_CONFIRMED, BOOKING_DECLINED,
       BOOKING_CANCELLED, BOOKING_PAID,
