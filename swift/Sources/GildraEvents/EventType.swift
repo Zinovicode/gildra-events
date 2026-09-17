@@ -77,6 +77,7 @@ public enum EventType {
 
     // MARK: message (chat messages — consumed by Notifications MessageHandler for push)
     public static let messageCreated        = "message.created"
+    public static let messageUnreadDigestDue = "message.unread_digest_due"
 
     // MARK: reminder (scheduled-cron-driven email triggers; published by
     // Gildra.Email's cron scripts and consumed by Gildra.Email's listener so

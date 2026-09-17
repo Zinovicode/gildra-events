@@ -94,6 +94,11 @@ module GildraEvents
 
     # message (chat messages — consumed by Notifications MessageHandler for push)
     MESSAGE_CREATED         = 'message.created'
+    # Unread-message reminder digest. Published by the Messages cron
+    # (bin/send_unread_reminders), one envelope per recipient per channel.
+    # data[:channel] is 'email' or 'push': Gildra.Email consumes 'email',
+    # Notifications consumes 'push', each ignores the other.
+    MESSAGE_UNREAD_DIGEST_DUE = 'message.unread_digest_due'
 
     # reminder (scheduled-cron-driven email triggers; published by Gildra.Email
     # cron scripts and consumed by Gildra.Email's listener, so only the listener
@@ -157,7 +162,7 @@ module GildraEvents
       SEARCH_GAP_DIGEST_READY,
       PLACE_CREATED,
       POST_CREATED, POST_COMMENTED, POST_REACTED,
-      MESSAGE_CREATED,
+      MESSAGE_CREATED, MESSAGE_UNREAD_DIGEST_DUE,
       PROFILE_REMINDER_DUE, AVAILABILITY_REMINDER_DUE,
       USER_CREATED, USER_UPDATED, USER_FOLLOW, USER_UNFOLLOW,
       PAYMENT_HOLD_PLACED, PAYMENT_HOLD_FAILED, PAYMENT_CAPTURE_FAILED,

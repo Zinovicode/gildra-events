@@ -84,6 +84,7 @@ export const EventType = {
 
   // message (chat messages — consumed by Notifications MessageHandler for push)
   MessageCreated:          'message.created',
+  MessageUnreadDigestDue:  'message.unread_digest_due',
 
   // reminder (scheduled-cron-driven email triggers; published by Gildra.Email
   // cron scripts and consumed by Gildra.Email's listener so only the listener
