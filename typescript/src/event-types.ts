@@ -91,6 +91,7 @@ export const EventType = {
   // process touches Mailtrap.)
   ProfileReminderDue:        'profile_reminder.due',
   AvailabilityReminderDue:   'availability_reminder.due',
+  SalesTaxReportDue:         'sales_tax_report.due',
 
   // user
   UserCreated:             'user.created',

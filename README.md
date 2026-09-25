@@ -104,6 +104,7 @@ gem 'gildra-events',
 | `message.created` | message | Chat messages — consumed by Notifications MessageHandler for push |
 | `profile_reminder.due` | reminder | Scheduled cron-driven email trigger |
 | `availability_reminder.due` | reminder | Scheduled cron-driven email trigger |
+| `sales_tax_report.due` | reminder | Monthly per-artist sales-tax summary; published by Billing's cron on the 1st at 08:00 ET. Consumer: Email |
 | `user.created` | user | |
 | `user.updated` | user | |
 | `user.follow` | user | |

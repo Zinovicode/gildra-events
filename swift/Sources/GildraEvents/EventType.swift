@@ -84,6 +84,7 @@ public enum EventType {
     // only the listener process touches Mailtrap.)
     public static let profileReminderDue       = "profile_reminder.due"
     public static let availabilityReminderDue  = "availability_reminder.due"
+    public static let salesTaxReportDue        = "sales_tax_report.due"
 
     // MARK: user
     public static let userCreated           = "user.created"

@@ -106,6 +106,13 @@ module GildraEvents
     # path for any future scheduled email surface.)
     PROFILE_REMINDER_DUE       = 'profile_reminder.due'
     AVAILABILITY_REMINDER_DUE  = 'availability_reminder.due'
+    # Monthly sales-tax summary for an artist. Published by Billing's cron
+    # (bin/generate_sales_tax_reports) on the 1st at 08:00 ET, one envelope per
+    # artist for the previous calendar month. Amounts are what Stripe Tax
+    # COLLECTED, never a rate calculation of our own. data[:jurisdictions] is
+    # always an array (one entry per state, registered or not) so the
+    # single-state and multi-state emails share one contract.
+    SALES_TAX_REPORT_DUE       = 'sales_tax_report.due'
 
     # user
     USER_CREATED            = 'user.created'
@@ -163,7 +170,7 @@ module GildraEvents
       PLACE_CREATED,
       POST_CREATED, POST_COMMENTED, POST_REACTED,
       MESSAGE_CREATED, MESSAGE_UNREAD_DIGEST_DUE,
-      PROFILE_REMINDER_DUE, AVAILABILITY_REMINDER_DUE,
+      PROFILE_REMINDER_DUE, AVAILABILITY_REMINDER_DUE, SALES_TAX_REPORT_DUE,
       USER_CREATED, USER_UPDATED, USER_FOLLOW, USER_UNFOLLOW,
       PAYMENT_HOLD_PLACED, PAYMENT_HOLD_FAILED, PAYMENT_CAPTURE_FAILED,
       PAYMENT_BANK_DEBIT_INITIATED, PAYMENT_BANK_DEBIT_FAILED, PAYMENT_CAPTURE_SUCCEEDED,
