@@ -7,6 +7,8 @@ import Foundation
 public enum PushAction: Equatable, Sendable {
     /// Switch to the artist's My Book tab and push AppointmentDetailView.
     case openAppointment(appointmentId: String)
+    /// Switch to My Book and push the Appointment requests list.
+    case openAppointmentRequests
     /// Switch to the Messages tab and open the conversation with `handle`.
     case openChat(handle: String, conversationId: String?)
     /// Push ProfileView for `handle`.
@@ -24,6 +26,7 @@ public enum PushAction: Equatable, Sendable {
 extension PushAction: Codable {
     private enum Kind: String, Codable {
         case openAppointment = "open_appointment"
+        case openAppointmentRequests = "open_appointment_requests"
         case openChat = "open_chat"
         case openProfile = "open_profile"
         case openPlace = "open_place"
@@ -47,6 +50,8 @@ extension PushAction: Codable {
         switch kind {
         case .openAppointment:
             self = .openAppointment(appointmentId: try container.decode(String.self, forKey: .appointmentId))
+        case .openAppointmentRequests:
+            self = .openAppointmentRequests
         case .openChat:
             self = .openChat(
                 handle: try container.decode(String.self, forKey: .handle),
@@ -71,6 +76,8 @@ extension PushAction: Codable {
         case .openAppointment(let id):
             try container.encode(Kind.openAppointment, forKey: .kind)
             try container.encode(id, forKey: .appointmentId)
+        case .openAppointmentRequests:
+            try container.encode(Kind.openAppointmentRequests, forKey: .kind)
         case .openChat(let handle, let conversationId):
             try container.encode(Kind.openChat, forKey: .kind)
             try container.encode(handle, forKey: .handle)

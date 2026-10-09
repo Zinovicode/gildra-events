@@ -9,6 +9,7 @@ module GildraEvents
   # the FCM `data.action` payload because FCM `data` is `Map<String, String>`.
   class PushAction
     KIND_OPEN_APPOINTMENT   = 'open_appointment'
+    KIND_OPEN_APPOINTMENT_REQUESTS = 'open_appointment_requests'
     KIND_OPEN_CHAT          = 'open_chat'
     KIND_OPEN_PROFILE       = 'open_profile'
     KIND_OPEN_PLACE         = 'open_place'
@@ -25,6 +26,11 @@ module GildraEvents
 
     def self.open_appointment(appointment_id)
       new(KIND_OPEN_APPOINTMENT, appointment_id: appointment_id)
+    end
+
+    # Artist's appointment requests list (grouped "requests waiting" reminder).
+    def self.open_appointment_requests
+      new(KIND_OPEN_APPOINTMENT_REQUESTS)
     end
 
     def self.open_chat(handle, conversation_id = nil)
