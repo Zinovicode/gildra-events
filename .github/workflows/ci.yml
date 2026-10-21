@@ -40,6 +40,8 @@ jobs:
               ui: ui
             )
             JSON.parse(env.to_json)
+            r = GildraEvents::PushAction.open_appointment_requests
+            raise "open_appointment_requests round-trip" unless GildraEvents::PushAction.from_hash(JSON.parse(r.to_json)).kind == "open_appointment_requests"
             puts "ok #{GildraEvents::VERSION}"
           '
 
