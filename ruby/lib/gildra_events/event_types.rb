@@ -136,6 +136,10 @@ module GildraEvents
     # Notifications (in-app + push) + Email.)
     ARTIST_SERVICE_ANNOUNCED = 'artist_service.announced'
 
+    # gift_card (Billing-owned; published once a gift card purchase succeeds and
+    # the card is issued. Consumers: Notifications (in-app + push) + Email.)
+    GIFT_CARD_ISSUED = 'gift_card.issued'
+
     ALL = [
       APPOINTMENT_REQUESTED, APPOINTMENT_CONFIRMED, APPOINTMENT_DECLINED,
       APPOINTMENT_CANCELLED, APPOINTMENT_COMPLETED,
@@ -167,7 +171,8 @@ module GildraEvents
       USER_CREATED, USER_UPDATED, USER_FOLLOW, USER_UNFOLLOW,
       PAYMENT_HOLD_PLACED, PAYMENT_HOLD_FAILED, PAYMENT_CAPTURE_FAILED,
       PAYMENT_BANK_DEBIT_INITIATED, PAYMENT_BANK_DEBIT_FAILED, PAYMENT_CAPTURE_SUCCEEDED,
-      ARTIST_SERVICE_ANNOUNCED
+      ARTIST_SERVICE_ANNOUNCED,
+      GIFT_CARD_ISSUED
     ].freeze
   end
 end

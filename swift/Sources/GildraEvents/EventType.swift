@@ -101,4 +101,7 @@ public enum EventType {
 
     // MARK: artist_service (artist announces a new service / price change; consumers: Notifications + Email)
     public static let artistServiceAnnounced = "artist_service.announced"
+
+    // MARK: gift_card (Billing-owned; published when a gift card is issued. Consumers: Notifications + Email)
+    public static let giftCardIssued = "gift_card.issued"
 }

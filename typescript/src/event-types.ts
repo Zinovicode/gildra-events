@@ -108,6 +108,9 @@ export const EventType = {
 
   // artist_service (artist announces a new service / price change; consumers: Notifications + Email)
   ArtistServiceAnnounced:  'artist_service.announced',
+
+  // gift_card (Billing-owned; published when a gift card is issued. Consumers: Notifications + Email)
+  GiftCardIssued:          'gift_card.issued',
 } as const;
 
 export type EventTypeName = typeof EventType[keyof typeof EventType];
