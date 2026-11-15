@@ -139,6 +139,9 @@ module GildraEvents
     # gift_card (Billing-owned; published once a gift card purchase succeeds and
     # the card is issued. Consumers: Notifications (in-app + push) + Email.)
     GIFT_CARD_ISSUED = 'gift_card.issued'
+    # Billing-owned; one per send (initial, resend, recipient change). channel email → Email,
+    # sms → Phone; hinted user → Notifications. Dedupe on data.send_event_id.
+    GIFT_CARD_CODE_SENT = 'gift_card.code_sent'
 
     ALL = [
       APPOINTMENT_REQUESTED, APPOINTMENT_CONFIRMED, APPOINTMENT_DECLINED,
@@ -172,7 +175,7 @@ module GildraEvents
       PAYMENT_HOLD_PLACED, PAYMENT_HOLD_FAILED, PAYMENT_CAPTURE_FAILED,
       PAYMENT_BANK_DEBIT_INITIATED, PAYMENT_BANK_DEBIT_FAILED, PAYMENT_CAPTURE_SUCCEEDED,
       ARTIST_SERVICE_ANNOUNCED,
-      GIFT_CARD_ISSUED
+      GIFT_CARD_ISSUED, GIFT_CARD_CODE_SENT
     ].freeze
   end
 end
