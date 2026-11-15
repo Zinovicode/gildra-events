@@ -104,4 +104,7 @@ public enum EventType {
 
     // MARK: gift_card (Billing-owned; published when a gift card is issued. Consumers: Notifications + Email)
     public static let giftCardIssued = "gift_card.issued"
+    // Billing-owned; one per send (initial, resend, recipient change). channel email → Email,
+    // sms → Phone; hinted user → Notifications. Dedupe on data.send_event_id.
+    public static let giftCardCodeSent = "gift_card.code_sent"
 }
