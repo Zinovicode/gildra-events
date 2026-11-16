@@ -110,7 +110,8 @@ gem 'gildra-events',
 | `user.unfollow` | user | |
 | `artist_service.announced` | artist_service | Artist announces a new service or price change to their clients and followers; published per-recipient by LM. Consumers: Notifications (in-app + push) + Email |
 | `gift_card.issued` | gift_card | Billing-owned; published when a gift card is issued. Consumers: Email (receipt), Notifications (artist sale notice). Since 0.25.0 carries no code. |
-| `gift_card.code_sent` | gift_card | Billing-owned; one per send (initial, resend, recipient change). channel email → Email, sms → Phone; hinted user → Notifications. Dedupe on `data.send_event_id` |
+| `gift_card.code_sent` | gift_card | Billing-owned; one per send (initial, resend, recipient change). channel email → Email, sms → Phone; hinted user → Notifications. Dedupe on `data.send_event_id`. Since 0.26.0 also carries `buyer_user_id`, `buyer_email`, `scheduled_delivery` (buyer "sent" notice) |
+| `gift_card.claimed` | gift_card | Billing-owned; a card was claimed (code or checkout). recipient = the buyer → Notifications + Email buyer notice (skipped when `claimed_by_buyer`). Dedupe on `data.gift_card_id` |
 
 ## PushAction kinds
 

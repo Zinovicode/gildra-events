@@ -107,4 +107,7 @@ public enum EventType {
     // Billing-owned; one per send (initial, resend, recipient change). channel email → Email,
     // sms → Phone; hinted user → Notifications. Dedupe on data.send_event_id.
     public static let giftCardCodeSent = "gift_card.code_sent"
+    // Billing-owned; a gift card was claimed (by its code, or by being spent at checkout).
+    // recipient = the buyer. Consumers: Notifications + Email (buyer notice). Dedupe on data.gift_card_id.
+    public static let giftCardClaimed = "gift_card.claimed"
 }
