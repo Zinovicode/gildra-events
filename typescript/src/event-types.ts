@@ -114,6 +114,9 @@ export const EventType = {
   // Billing-owned; one per send (initial, resend, recipient change). channel email → Email,
   // sms → Phone; hinted user → Notifications. Dedupe on data.send_event_id.
   GiftCardCodeSent:        'gift_card.code_sent',
+  // Billing-owned; a gift card was claimed (by its code, or by being spent at checkout).
+  // recipient = the buyer. Consumers: Notifications + Email (buyer notice). Dedupe on data.gift_card_id.
+  GiftCardClaimed:         'gift_card.claimed',
 } as const;
 
 export type EventTypeName = typeof EventType[keyof typeof EventType];
